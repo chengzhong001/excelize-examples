@@ -118,6 +118,17 @@ func main() {
 		fmt.Println(err)
 	}
 
+	if err := f.SetPanes(sheetName, `{
+		"freeze":true,
+		"split":false,
+		"x_split":0,
+		"y_split":3,
+		"top_left_cell":"A4",
+		"active_pane":"bootomleft"
+	}`); err!= nil{
+		fmt.Println(err)
+	}
+
 	if err := f.SaveAs("Book1.xlsx"); err != nil {
 		fmt.Println(err)
 	}
