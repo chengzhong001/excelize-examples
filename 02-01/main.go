@@ -58,7 +58,7 @@ func main() {
 		return
 	}
 
-	// 应用定义的单元格央视
+	// 应用定义的单元格样式
 	if f.SetCellStyle(sheetName, "A1", "A1", style1); err != nil {
 		fmt.Println(err)
 		return
@@ -72,7 +72,7 @@ func main() {
 		return
 	}
 
-	// 应用定义的单元格央视
+	// 应用定义的单元格样式
 	for _, cell := range []string{"A2", "E2", "H2"} {
 		if f.SetCellStyle(sheetName, cell, cell, style2); err != nil {
 			fmt.Println(err)
@@ -85,13 +85,37 @@ func main() {
 		return
 	}
 
-	// 设置筛选狂表格和
+	// 设置筛选框表格
 	if err:= f.AddTable(sheetName, "A3", "K9", `{
 		"table_name": "table",
 		"table_style": "TableStyleLight2"
 	}`); err != nil{
 		fmt.Println(err)
 		return
+	}
+
+	if err := f.AddChart(sheetName, "A10", `{
+		"type": "col",
+		"series": [
+			{
+				"name": "成绩单!$A$2",
+				"categories": "成绩单!$C$4:$C$9",
+				"values": "成绩单!$J$4:$J$9"
+			}
+		],
+		"format": {
+			"x_scale": 1.3,
+			"x_offset": 10,
+			"y_offset": 20
+		},
+		"legend": {
+			"none": true 
+		},
+		"title": {
+			"name": "成绩单"
+		}
+	}`); err != nil{
+		fmt.Println(err)
 	}
 
 	if err := f.SaveAs("Book1.xlsx"); err != nil {
