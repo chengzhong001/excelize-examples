@@ -93,7 +93,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
+	// 添加图表
 	if err := f.AddChart(sheetName, "A10", `{
 		"type": "col",
 		"series": [
@@ -117,7 +117,7 @@ func main() {
 	}`); err != nil{
 		fmt.Println(err)
 	}
-
+	// 冻结单元格
 	if err := f.SetPanes(sheetName, `{
 		"freeze":true,
 		"split":false,
