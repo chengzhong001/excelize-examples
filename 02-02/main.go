@@ -40,7 +40,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
 	mergeCellRanges := [][]string{{"A1", "K1"}, {"A2", "D2"}, {"E2", "G2"}, {"H2", "J2"}}
 	for _, ranges := range mergeCellRanges {
 		if err := f.MergeCell(sheetName, ranges[0], ranges[1]); err != nil {
@@ -57,7 +56,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
 	// 应用定义的单元格样式
 	if f.SetCellStyle(sheetName, "A1", "A1", style1); err != nil {
 		fmt.Println(err)
@@ -71,7 +69,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
 	// 应用定义的单元格样式
 	for _, cell := range []string{"A2", "E2", "H2"} {
 		if f.SetCellStyle(sheetName, cell, cell, style2); err != nil {
@@ -84,7 +81,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
 	// 设置筛选框表格
 	if err := f.AddTable(sheetName, "A3", "K9", `{
 		"table_name": "table",
@@ -117,7 +113,6 @@ func main() {
 	}`); err != nil {
 		fmt.Println(err)
 	}
-
 	// 添加图表
 	if err := f.AddChartSheet("统计图", `{
 		"type": "col",
@@ -170,8 +165,6 @@ func main() {
 			"format": %d
 		}
 	]`, red)
-
-
 	green, err := f.NewConditionalStyle(`{
 		"font": {
 			"color": "#09600B"
@@ -186,7 +179,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
 	topCond := fmt.Sprintf(`[
 		{
 			"type": "top",
@@ -195,7 +187,6 @@ func main() {
 			"format": %d
 		}
 	]`, green)
-
 	for _, col := range []string{"E", "F", "G", "H", "I", "J"} {
 		ref := fmt.Sprintf("%s4:%s9", col, col)
 		if err := f.SetConditionalFormat(sheetName, ref, bottomCond); err != nil {
@@ -208,21 +199,19 @@ func main() {
 		}
 	}
 	// 添加评论
-	if err:= f.AddComment(sheetName, "F6", `{"author": "老师: ", "text": "优秀"}`); err!= nil{
+	if err := f.AddComment(sheetName, "F6", `{"author": "老师: ", "text": "优秀"}`); err != nil {
 		fmt.Println(err)
 		return
 	}
 	// 设置数据验证
 	dvRange := excelize.NewDataValidation(true)
 	dvRange.Sqref = "D4:D9"
-	dvRange.SetDropList([]string{"1班","2班","3班"})
-	if err:= f.AddDataValidation(sheetName, dvRange);err!= nil{
+	dvRange.SetDropList([]string{"1班", "2班", "3班"})
+	if err := f.AddDataValidation(sheetName, dvRange); err != nil {
 		fmt.Println(err)
 		return
 	}
-	
 	if err := f.SaveAs("Book1.xlsx"); err != nil {
 		fmt.Println(err)
 	}
-
 }
