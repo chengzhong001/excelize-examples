@@ -200,12 +200,26 @@ func main() {
 		ref := fmt.Sprintf("%s4:%s9", col, col)
 		if err := f.SetConditionalFormat(sheetName, ref, bottomCond); err != nil {
 			fmt.Println(err)
+			return
 		}
 		if err := f.SetConditionalFormat(sheetName, ref, topCond); err != nil {
 			fmt.Println(err)
+			return
 		}
 	}
-
+	// 添加评论
+	if err:= f.AddComment(sheetName, "F6", `{"author": "老师: ", "text": "优秀"}`); err!= nil{
+		fmt.Println(err)
+		return
+	}
+	// 设置数据验证
+	dvRange := excelize.NewDataValidation(true)
+	dvRange.Sqref = "D4:D9"
+	dvRange.SetDropList([]string{"1班","2班","3班"})
+	if err:= f.AddDataValidation(sheetName, dvRange);err!= nil{
+		fmt.Println(err)
+		return
+	}
 	
 	if err := f.SaveAs("Book1.xlsx"); err != nil {
 		fmt.Println(err)
