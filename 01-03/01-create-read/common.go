@@ -52,11 +52,11 @@ func Read() {
 		return
 	}
 	// 获取 Sheet1 上所有单元格
-	for index, row := range rows {
+	for _, row := range rows {
 		for _, colCell := range row {
 			fmt.Println(colCell, "\t")
 		}
-		fmt.Println(index)
+		fmt.Println()
 	}
 
 }
