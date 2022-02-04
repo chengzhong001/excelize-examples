@@ -46,16 +46,17 @@ func Read() {
 	fmt.Println(cell)
 
 	rows, err := f.GetRows("Sheet1")
+
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	// 获取 Sheet1 上所有单元格
-	for _, row := range rows {
+	for index, row := range rows {
 		for _, colCell := range row {
 			fmt.Println(colCell, "\t")
 		}
-		fmt.Println()
+		fmt.Println(index)
 	}
 
 }
